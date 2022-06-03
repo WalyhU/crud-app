@@ -1,0 +1,36 @@
+<div class="columns">
+    {{#each notes}}
+    <div class="column">
+        <div class="card">
+            <header class="card-header">
+                <p class="card-header-title">
+                    {{title}}
+                </p>
+                <button class="card-header-icon" aria-label="more options">
+                    <span class="icon">
+                        <i class="fa-solid fa-angle-down" aria-hidden="true"></i>
+                    </span>
+                </button>
+            </header>
+            <div class="card-content">
+                <div class="content">
+                    {{description}}
+                    <br>
+                    <br>
+                    <time>{{createdAt}}</time>
+                </div>
+            </div>
+            <form action="/notes/delete/{{_id}}?_method=DELETE" method="post">
+                <footer class="card-footer">
+                    <a href="/notes/edit/{{_id}}" class="card-footer-item btn-footer"><i
+                            class="fa-regular fa-pen-to-square"></i></a>
+                    <input type="hidden" name="_method" value="DELETE">
+                    <button type="submit" class="card-footer-item btn"><i class="fa-solid fa-eraser"></i></button>
+                </footer>
+            </form>
+        </div>
+        <br>
+        <br>
+    </div>
+    {{/each}}
+</div>
