@@ -1,0 +1,188 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif, serif;
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: #ebebeb;
+}
+
+::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+
+::-webkit-scrollbar:vertical {
+    width:10px;
+    background: #e9e9e8;
+}
+
+::-webkit-scrollbar-button:increment, ::-webkit-scrollbar-button {
+    display: none;
+}
+
+::-webkit-scrollbar:horizontal {
+    height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #0D0D0D;
+    border-radius: 20px;
+    border: 2px solid #e4e4db;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 10px;
+}
+
+.nav {
+    background-color: #FED500;
+    width: 100%;
+    height: 325px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.nav .nav-content {
+    max-width: 1200px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav .nav-content .logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 50px;
+}
+
+.nav .nav-content .logo img {
+    height: 180px;
+}
+
+.nav .nav-content .nav-items {
+    display: grid;
+    align-items: center;
+    text-align: center;
+}
+
+.nav .nav-content .nav-items .list-xd {
+    text-decoration: none;
+    color: #0D0D0D;
+    text-transform: uppercase;
+    font-weight: 900;
+    border-right: 2px solid #0D0D0D;
+    padding: 0px 10px 0px 0px;
+    margin: 10px;
+    transition: all 150ms;
+}
+
+.nav .nav-content .nav-items .list-xd:nth-child(4) {
+    border-right: none;
+}
+
+.nav .nav-content .nav-items .list-xd li {
+    padding: 0px 10px 10px 10px;
+    transition: 150ms;
+}
+
+
+.nav .nav-content .nav-items .list-xd li:hover {
+    border-bottom: 3px solid #0D0D0D;
+    transition: 150ms;
+}
+
+.nav .nav-content .nav-items ul li{
+    display: inline;
+}
+
+.under-header .image {
+    width: 100%;
+    height: 50vh;
+    background-image: url('/Imagen2.png');
+    background-size: cover;
+}
+
+.map .image {
+    height: 100vh;
+    display: flex;
+    margin-bottom: 50px;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.map .image img{
+    height: 100vh;
+    background-size: cover;
+}
+
+section.text {
+    display: flex;
+}
+
+.parrafos {
+    width: 100%;
+    text-align: justify;
+    padding: 50px;
+    margin: auto;
+}
+
+.p {
+    width: 1200px;
+    margin: auto;
+    font-weight: 500;
+    font-size: 25px;
+}
+
+.p h1 {
+    font-weight: 900;
+}
+
+p {
+    font-family: 'Roboto', sans-serif;
+}
+
+b {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 800;
+}
+
+.btn-login, .btn-register {
+    position: absolute;
+    top: 0;
+    right: 0;
+    text-decoration: none;
+    color: #0D0D0D;
+    font-weight: 800;
+    padding: 10px;
+    transition: all ease 100ms;
+}
+
+.btn-login {
+    margin: 30px 150px 30px 30px;
+}
+
+.btn-register {
+    margin: 30px;
+    color: #FED500;
+    background: #0D0D0D;
+    border-radius: 12px;
+}
+
+.btn-login:hover {
+    border-bottom: 2px solid #0D0D0D;
+}
+
+.btn-register:hover {
+    background: #1d1d1d;
+    transition: all ease 300ms;
+}

@@ -1,0 +1,124 @@
+{{>navigation_profile_admin}}
+<div class="separacion"></div>
+<link href="https://unpkg.com/tailwindcss@2.2.4/dist/tailwind.min.css" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
+<link rel="stylesheet" href="/css/add-contrato.css">
+<link rel="stylesheet" href="/css/profile.css">
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<section id="Formulario">
+    <div class="form">
+        <div class="contenido">
+            <div class="titulo">
+                <h1>Crear Contrato</h1>
+            </div>
+            <div class="contenedor-form">
+                <form action="/contrato/new-contrato" method="post">
+                    <div class="fecha-inicial">
+                        <input type="text" name="dia" id="dia" class="fei" placeholder="día" autocomplete="off">
+                        <input type="text" name="mes" id="mesini" class="fei" placeholder="mes" autocomplete="off">
+                        <input type="hidden" name="year" id="year">
+                    </div>
+                    <select name="user" class="user-select single js-states form-control" id="id_label_single"
+                        style="width: 100%;" autofocus>
+                        <option value="" disabled selected>Seleccione un usuario...</option>
+                        {{#each datos}}
+                        <option value="{{user}}" dpi="{{dpi}}" direccion="{{direccion}}">{{nombre}} {{apellido}}</option>
+                        {{/each}}
+                    </select>
+                    <input type="number" name="dpi" id="dpi" placeholder="dpi" autocomplete="off">
+                    <input type="text" name="nombre" id="nombre" placeholder="nombre" autocomplete="off">
+                    <input type="text" name="direccion" id="direccion" placeholder="direccion" autocomplete="off">
+                    <input type="number" name="edad" placeholder="edad" autocomplete="off">
+                    <div class="radius">
+                        <input type="radio"
+                            class="appearance-none relative bg-neutral-400 h-8 w-8 cursor-pointer transition-all rounded inline-flex text-center justify-center items-center checked:bg-blue-600 checked:after:border-b-[4px] checked:after:border-white checked:after:border-r-[4px] checked:after:rotate-45 checked:after:rounded-sm after:h-5 after:w-3 after:absolute after:text-xl after:text-white"
+                            name="estado" id="soltero" value="Soltero">
+                        <label for="soltero">Soltero</label>
+                        <input type="radio"
+                            class="appearance-none relative bg-neutral-400 h-8 w-8 cursor-pointer transition-all rounded inline-flex text-center justify-center items-center checked:bg-blue-600 checked:after:border-b-[4px] checked:after:border-white checked:after:border-r-[4px] checked:after:rotate-45 checked:after:rounded-sm after:h-5 after:w-3 after:absolute after:text-xl after:text-white"
+                            name="estado" id="casado" value="Casado">
+                        <label for="casado">Casado</label>
+                    </div>
+                    <input type="number" name="cantlotes" placeholder="Cantidad de lotes" autocomplete="off">
+                    <input type="number" name="medidas" placeholder="Metros cuadrados (c/u)" autocomplete="off">
+                    <input type="text" name="total" id="total" placeholder="Precio total" autocomplete="off">
+                    <input type="text" name="meses" id="meses" value="36" placeholder="Meses" autocomplete="off">
+                    <input type="number" name="porcentaje" id="porcentaje" value="0.2" placeholder="Porcentaje" autocomplete="off">
+                    <input type="text" name="enganche" id="enganche" placeholder="Enganche" autocomplete="off">
+                    <input type="text" name="pendiente" id="pendiente" placeholder="Pendiente" autocomplete="off">
+                    <input type="number" name="nlotes" placeholder="N° de Lote(s)" autocomplete="off">
+                    <input type="text" name="cuotas" id="cuotas" placeholder="Cuotas" autocomplete="off">
+                    <div class="fecha-final">
+                        <input type="text" name="apartir" id="apartir" class="fei" placeholder="Apartir de"
+                            autocomplete="off">
+                        <input type="text" name="hasta" id="hasta" class="fei" placeholder="Hasta" autocomplete="off">
+                    </div>
+                    <h1 class="refe">Referencia 1</h1>
+                    <div class="fecha-final">
+                        <input type="text" name="ref1no" class="fei" placeholder="Nombre" autocomplete="off">
+                        <input type="text" name="ref1nu" class="fei" placeholder="Número tel." autocomplete="off">
+                    </div>
+                    <h1 class="refe">Referencia 2</h1>
+                    <div class="fecha-final">
+                        <input type="text" name="ref2no" class="fei" placeholder="Nombre" autocomplete="off">
+                        <input type="text" name="ref2nu" class="fei" placeholder="Número tel." autocomplete="off">
+                    </div>
+                    <input type="submit" value="Crear Contrato">
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    $('.user-select').select2({
+        placeholder: 'Selecciona un usuario...'
+    });
+    $('.estado-civil').select2({
+        placeholder: 'Seleccione el estado civil...'
+    });
+</script>
+<script>
+    $(".user-select").change(function () {
+        const mesActual = new Date();
+        const meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Setiembre", "Octubre", "Noviembre", "Diciembre"];
+        $('#dia').val(mesActual.getDate());
+        $('#mesini').val(meses[mesActual.getMonth()]);
+        $('#year').val(mesActual.getFullYear());
+        mes = mesActual.getMonth() + 1;
+        year_final = mesActual.getFullYear() + 3;
+        console.log("🚀 ~ file: new-contrato.hbs ~ line 86 ~ year_final", year_final)
+        console.log("🚀 ~ file: new-contrato.hbs ~ line 85 ~ mes", mes);
+        $('#apartir').val(mesActual.getDate() + ' de ' + meses[mes] + ' del ' + mesActual.getFullYear());
+        $('#hasta').val(mesActual.getDate() + ' de ' + meses[mes] + ' del ' + year_final);
+
+        nombre = $('select[name="user"] option:selected').text();
+        $('#nombre').val(nombre);
+        dpi = $('select[name="user"] option:selected').attr('dpi');
+        $('#dpi').val(dpi);
+        direccion = $('select[name="user"] option:selected').attr('direccion');
+        $('#direccion').val(direccion);
+    });
+</script>
+<script>
+    $("#total").keyup(function (event) {
+        total = $("#total").val();
+        meses = $("#meses").val();
+        porecentaje = $("#porcentaje").val();
+        enganche = total * porecentaje;
+        restante = total - enganche;
+        cuotas = restante / meses;
+        interes_anual = restante * 0.05;
+        interes_mensual = interes_anual / 12;
+        total_intereses = interes_mensual * meses;
+        total_cuotas = cuotas + interes_mensual;
+
+        var engancheString = numeral(enganche).format('0,0.00');
+        var restanteString = numeral(restante).format('0,0.00');
+        var cuotasString = numeral(total_cuotas).format('0,0.00');
+        $('#enganche').val(engancheString);
+        $('#pendiente').val(restanteString);
+        $('#cuotas').val(cuotasString);
+    })
+</script>

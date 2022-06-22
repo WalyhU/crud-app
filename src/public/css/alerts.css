@@ -1,0 +1,134 @@
+.i0 {
+    bottom: 50px;
+}
+
+.i1 {
+    bottom: 150px;
+}
+
+/* ALERTA VERDE */
+
+.alert.is-success {
+    background: #afff9b;
+    border-left: 4px solid rgb(10, 156, 5);
+    color: rgb(10, 156, 5);
+}
+
+.alert.is-success .close-btn {
+    background: #a3f18f;
+}
+
+.alert.is-success .close-btn:hover {
+    background: #96e283;
+}
+
+/* ALERTA ROJA */
+
+.alert.is-error {
+    background: #ff9b9b;
+    border-left: 4px solid #da2525;
+    color: #da2525;
+}
+
+.alert.is-error .close-btn {
+    background: #ff9090;
+}
+
+.alert.is-error .close-btn:hover {
+    background: rgb(253, 126, 126);
+}
+
+.alert {
+    padding: 20px 40px;
+    min-width: 420px;
+    position: absolute;
+    right: 20px;
+    border-radius: 4px;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.alert.showAlert {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.alert.show {
+    animation: show_slide 1s ease forwards;
+}
+
+@keyframes show_slide {
+    0% {
+        transform: translateX(100%);
+    }
+    40% {
+        transform: translateX(-10%);
+    }
+    80% {
+        transform: translateX(0%);
+    }
+    100% {
+        transform: translateX(-10px);
+    }
+}
+
+.alert.hide {
+    animation: hide_slide 1s ease forwards;
+}
+
+.alert.display-none {
+    display: none;
+}
+
+.i0.display-none {
+    display: none;
+}
+
+.i1.display-none {
+    display: none;
+}
+
+@keyframes hide_slide {
+    0% {
+        transform: translateX(-10px);
+    }
+    40% {
+        transform: translateX(0%);
+    }
+    80% {
+        transform: translateX(-10%);
+    }
+    100% {
+        transform: translateX(110%);
+    }
+}
+
+.alert .fa-exclamation-circle {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 30px;
+}
+
+.alert .msg {
+    padding: 0 20px;
+    font-size: 18px;
+}
+
+.alert .close-btn {
+    position: absolute;
+    right: 0px;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 20px 18px;
+    cursor: pointer;
+    z-index: 305;
+}
+
+.close-btn .fa-times {
+    font-size: 12px;
+    line-height: 40px;
+}

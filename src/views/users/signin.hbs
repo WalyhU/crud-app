@@ -1,44 +1,18 @@
-<form action="/signin" method="post">
-    <div class="card">
-        <header class="card-header">
-            <p class="card-header-title">
-                Account Log in
-            </p>
-            <button class="card-header-icon" aria-label="more options">
-                <span class="icon">
-                    <i class="fas fa-angle-down" aria-hidden="true"></i>
-                </span>
-            </button>
-        </header>
-        <div class="card-content">
-            <div class="content">
-                <div class="field">
-                    <p class="control has-icons-left has-icons-right">
-                        <input class="input" type="email" name="email" placeholder="Email" autocomplete="off">
-                        <span class="icon is-small is-left">
-                            <i class="fas fa-envelope"></i>
-                        </span>
-                        <span class="icon is-small is-right">
-                            <i class="fas fa-check"></i>
-                        </span>
-                    </p>
+{{>navigation_login}}
+<link rel="stylesheet" href="/css/login.css">
+    <section id="Formulario">
+        <div class="form">
+            <div class="contenido">
+                <div class="titulo">
+                    <h1>Inicio de Sesión</h1>
                 </div>
-                <div class="field">
-                    <p class="control has-icons-left">
-                        <input class="input" type="password" name="password" placeholder="Password">
-                        <span class="icon is-small is-left">
-                            <i class="fas fa-lock"></i>
-                        </span>
-                    </p>
-                </div>
-                <div class="field">
-                    <p class="control">
-                        <button class="button is-success">
-                            Log in
-                        </button>
-                    </p>
+                <div class="contenedor-form">
+                    <form action="/signin" method="post">
+                        <input type="email" name="email" placeholder="correo" autocomplete="off">
+                        <input type="password" name="password" placeholder="contraseña">
+                        <input type="submit" class="campo" value="Iniciar Sesión">
+                    </form>
                 </div>
             </div>
         </div>
-    </div>
-</form>
+    </section>

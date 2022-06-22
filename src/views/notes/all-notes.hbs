@@ -1,36 +1,180 @@
-<div class="columns">
-    {{#each notes}}
-    <div class="column">
-        <div class="card">
-            <header class="card-header">
-                <p class="card-header-title">
-                    {{title}}
-                </p>
-                <button class="card-header-icon" aria-label="more options">
-                    <span class="icon">
-                        <i class="fa-solid fa-angle-down" aria-hidden="true"></i>
-                    </span>
-                </button>
-            </header>
-            <div class="card-content">
-                <div class="content">
-                    {{description}}
-                    <br>
-                    <br>
-                    <time>{{createdAt}}</time>
+<link rel="stylesheet" href="/css/profile.css">
+<link href="https://unpkg.com/tailwindcss@2.2.4/dist/tailwind.min.css" rel="stylesheet">
+<script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
+{{#if user.rol}}
+{{>navigation_profile_admin}}
+<div class="separacion"></div>
+<section class="text-gray-600 body-font">
+    <div class="container px-5 py-5 mx-auto">
+        <div class="flex flex-wrap -m-4">
+            {{#each notes}}
+            <div class="p-4 md:w-1/3">
+                <div class="h-full border-2 border-gray-200 bg-white border-opacity-60 rounded-lg overflow-hidden">
+                    <div class="w-full">
+                        <div class="w-full flex p-2">
+                            <div class="p-2 ">
+                                <img src="/B_R_Cesar_B_L.svg" alt="author"
+                                    class="w-10 h-10 rounded-full overflow-hidden" />
+                            </div>
+                            <div class="pl-2 pt-2 ">
+                                <input type="hidden" class="numero_recibo{{id}}" value="{{@index}}">
+                                <p class="font-bold">{{recibi}}</p>
+                                <p class="text-xs" id="num_recibo{{id}}"></p>
+                                <script>
+                                    cant = Number($('.numero_recibo{{id}}').val());
+                                    cantidad = cant + 1;
+                                    $('#num_recibo{{id}}').html('Recibo N° ' + cantidad);
+                                </script>
+                                <p class="text-xs" id="num_cantidad{{id}}"></p>
+                                <p class="text-xs">{{user}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <img class="lg:h-48 md:h-36 w-full object-cover object-center" src="/Imagen1.png"
+                        alt="blog cover" />
+                    <div class="p-4">
+                        <h2 class="tracking-widest text-xs title-font font-bold text-gray-400 mb-1 uppercase ">
+                            {{lugar}}
+                        </h2>
+                        <h2 class="tracking-widest text-xs title-font font-bold text-gray-400 mb-1 uppercase "
+                            id="{{id}}"></h2>
+                        <h1 class="title-font text-lg font-medium text-gray-900 mb-3" id="mostrar_cantidad{{id}}"> </h1>
+                            <input type="hidden" id="cantidad{{id}}" value="{{cantidad}}">
+                            <input type="hidden" id="restante{{id}}" value="{{restante}}">
+                            <input type="hidden" id="detalle{{id}}" value="{{detalle}}">
+                        <div class="flex items-center flex-wrap ">
+                            <a href="/profile/edit/{{_id}}"><span
+                                    class="text-gray-400 mr-3 inline-flex items-center lg:ml-auto md:ml-0 ml-auto leading-none text-sm pr-3 py-1 border-r-2 border-gray-200"><i
+                                        class="fa-regular fa-pen-to-square"> </i>
+                                    Actualizar
+                                </span></a>
+                            <form action="/notes/delete/{{_id}}?_method=DELETE" method="post">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <span class="text-gray-400 mr-3 inline-flex items-center lg:ml-auto md:ml-0 ml-auto leading-none text-sm pr-3 py-1 border-r-2 border-gray-200">
+                                    <button type="submit" class="card-footer-item btn"><i class="fa-solid fa-eraser"></i> Eliminar</button>
+                                </span>
+                            </form>
+                            <a href="/notes/recibo/{{@index}}/{{_id}}" target="_blank"><span class="text-gray-400 mr-3 inline-flex items-center lg:ml-auto md:ml-0 ml-auto leading-none text-sm pr-3 py-1 border-gray-200"><i class="fa-solid fa-print" style="margin-right: 5px;"></i> Imprimir</span></a>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <form action="/notes/delete/{{_id}}?_method=DELETE" method="post">
-                <footer class="card-footer">
-                    <a href="/notes/edit/{{_id}}" class="card-footer-item btn-footer"><i
-                            class="fa-regular fa-pen-to-square"></i></a>
-                    <input type="hidden" name="_method" value="DELETE">
-                    <button type="submit" class="card-footer-item btn"><i class="fa-solid fa-eraser"></i></button>
-                </footer>
-            </form>
+            <input type="hidden" value="{{createdAt}}" id="date{{id}}">
+            <script>
+                date = new Date($('#date{{id}}').val());
+                fecha = date.toLocaleDateString('es-ES');
+                $('#{{id}}').html(fecha);
+
+                var number = $('#restante{{id}}').val();
+                var cant = $('#cantidad{{id}}').val();
+                var myNumeral = numeral(number);
+                var cantidad = numeral(cant);
+                var cantidad_moneda = cantidad.format('Q0,0.00');
+                var currencyString = myNumeral.format('Q0,0.00');
+                var detalle = $('#detalle{{id}}').val();
+                $('#num_cantidad{{id}}').html('Cantidad: Q. ' + cantidad_moneda + '.');
+                $('#mostrar_cantidad{{id}}').html(detalle + ' del Proyecto Residencial Mallorca, restando un saldo de: Q. ' + currencyString + ' quetzales exactos.');
+            </script>
+            {{else}}
+            <div class="container-ups">
+                <div class="max-w-xl px-5 text-center">
+                    <h2 class="mb-2 text-[42px] font-bold text-zinc-800 ups">UPS! Vaya...</h2>
+                    <p class="mb-2 text-lg text-zinc-500">No tienes ningún recibo :(
+                        <br> Si crees que esto es un error comunícate con nosotros en: <span
+                            class="font-medium text-indigo-500">contact@bienesraicesgomez.com</span>.
+                    </p>
+                    <a href="/"
+                        class="mt-3 inline-block w-96 rounded bg-amber-500 px-5 py-3 font-medium text-white shadow-md shadow-indigo-500/20 hover:bg-amber-700">Ir
+                        a la página principal →</a>
+                </div>
+            </div>
+            {{/each}}
         </div>
-        <br>
-        <br>
     </div>
-    {{/each}}
-</div>
+</section>
+{{else}}
+{{>navigation_profile}}
+<div class="separacion"></div>
+<section class="text-gray-600 body-font">
+    <div class="container px-5 py-5 mx-auto">
+        <div class="flex flex-wrap -m-4">
+            {{#if user}}
+            <h1 class="titulo">¡Bienvenido {{user.name}}!</h1>
+            {{/if}}
+            {{#each notes_user}}
+            <div class="p-4 md:w-1/3">
+                <div class="h-full border-2 border-gray-200 bg-white border-opacity-60 rounded-lg overflow-hidden">
+                    <div class="w-full">
+                        <div class="w-full flex p-2">
+                            <div class="p-2 ">
+                                <img src="/B_R_Cesar_B_L.svg" alt="author"
+                                    class="w-10 h-10 rounded-full overflow-hidden" />
+                            </div>
+                            <div class="pl-2 pt-2 ">
+                                <input type="hidden" class="numero_recibo{{id}}" value="{{@index}}">
+                                <p class="font-bold">{{recibi}}</p>
+                                <p class="text-xs" id="num_recibo{{id}}"></p>
+                                <script>
+                                    cant = Number($('.numero_recibo{{id}}').val());
+                                    cantidad = cant + 1;
+                                    $('#num_recibo{{id}}').html('Recibo N° ' + cantidad);
+                                </script>
+                                <input type="hidden" value="{{cantidad}}" id="cantidad{{id}}">
+                                <p class="text-xs" id="mostrar_cant{{id}}"></p>
+                                <p class="text-xs">{{user}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <img class="lg:h-48 md:h-36 w-full object-cover object-center" src="/background-card.png"
+                        alt="blog cover" />
+                    <div class="p-4">
+                        <h2 class="tracking-widest text-xs title-font font-bold text-gray-400 mb-1 uppercase ">
+                            {{lugar}}
+                        </h2>
+                        <h2 class="tracking-widest text-xs title-font font-bold text-gray-400 mb-1 uppercase "
+                            id="fecha{{id}}"></h2>
+                        <h1 class="title-font text-lg font-medium text-gray-900 mb-3" id="most_detalle{{id}}"> </h1>
+                            <input type="hidden" id="restante{{id}}" value="{{restante}}">
+                            <input type="hidden" id="detalle{{id}}" value="{{detalle}}">
+                        <div class="flex items-center flex-wrap ">
+                            <a href="/notes/recibo/{{@index}}/{{_id}}" target="_blank"><span class="text-gray-400 mr-3 inline-flex items-center lg:ml-auto md:ml-0 ml-auto leading-none text-sm pr-3 py-1 border-gray-200"><i class="fa-solid fa-print" style="margin-right: 5px;"></i> Imprimir</span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" value="{{createdAt}}" id="date{{id}}">
+            <script>
+                date = new Date($('#date{{id}}').val());
+                fecha = date.toLocaleDateString('es-ES');
+                $('#fecha{{id}}').html(fecha);
+
+                var number = $('#restante{{id}}').val();
+                var myNumeral = numeral(number);
+                var currencyString = myNumeral.format('Q0,0.00');
+                var detalle = $('#detalle{{id}}').val();
+
+                var cant = $('#cantidad{{id}}').val();
+                var cantidad = numeral(cant);
+                var cantidad_moneda = cantidad.format('Q0,0.00');
+                $('#mostrar_cant{{id}}').html('Cantidad: Q. ' + cantidad_moneda);
+
+                $('#most_detalle{{id}}').html(detalle + ' del Proyecto Residencial Mallorca, restando un saldo de: Q. ' + currencyString + ' quetzales exactos.');
+            </script>
+            {{else}}
+            <div class="container-ups">
+                <div class="max-w-xl px-5 text-center">
+                    <h2 class="mb-2 text-[42px] font-bold text-zinc-800 ups">UPS! Vaya...</h2>
+                    <p class="mb-2 text-lg text-zinc-500">No tienes ningún recibo :(
+                        <br> Si crees que esto es un error comunícate con nosotros en: <span
+                            class="font-medium text-indigo-500">contact@bienesraicesgomez.com</span>.
+                    </p>
+                    <a href="/"
+                        class="mt-3 inline-block w-96 rounded bg-amber-500 px-5 py-3 font-medium text-white shadow-md shadow-indigo-500/20 hover:bg-amber-700">Ir
+                        a la página principal →</a>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+</section>
+{{/if}}

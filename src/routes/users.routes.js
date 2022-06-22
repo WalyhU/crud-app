@@ -1,15 +1,22 @@
 const { Router } = require('express');
 const router = Router();
 
-const { renderSignUpForm, renderSigninForm, signup, signin, logout } = require('../controllers/users.controller')
+const { renderSignUpForm,
+    renderSigninForm,
+    signup,
+    signin,
+    logout
+} = require('../controllers/users.controller');
 
-router.get('/signup', renderSignUpForm);
+const { isntAuthenticated } = require ('../helpers/auth');
 
-router.post('/signup', signup);
+router.get('/signup', isntAuthenticated, renderSignUpForm);
 
-router.get('/signin', renderSigninForm);
+router.post('/signup', isntAuthenticated, signup);
 
-router.post('/signin', signin);
+router.get('/signin', isntAuthenticated, renderSigninForm);
+
+router.post('/signin', isntAuthenticated, signin);
 
 router.get('/logout', logout);
 

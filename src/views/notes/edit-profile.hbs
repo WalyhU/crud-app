@@ -1,0 +1,22 @@
+{{>navigation_profile_admin}}
+<div class="separacion"></div>
+<link href="https://unpkg.com/tailwindcss@2.2.4/dist/tailwind.min.css" rel="stylesheet">
+<link rel="stylesheet" href="/css/register.css">
+<link rel="stylesheet" href="/css/profile.css">
+<section id="Formulario">
+    <div class="form">
+        <div class="contenido">
+            <div class="titulo">
+                <h1>Actualizar Perfil</h1>
+            </div>
+            <div class="contenedor-form">
+                <form action="/profile/edit/{{users.id}}?_method=PUT" method="post">
+                    <input type="hidden" name="_method" value="PUT">
+                    <input type="text" name="name" placeholder="nombre" value="{{users.name}}" autocomplete="off" autofocus>
+                    <input type="email" name="email" placeholder="correo" value="{{users.email}}" autocomplete="off">
+                    <input type="submit" value="Actualizar">
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

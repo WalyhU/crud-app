@@ -1,0 +1,172 @@
+<link rel="stylesheet" href="/css/ver-recibos.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+<script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
+
+<div class="canvas-div">
+  <canvas id="canvas" width="1282" height="720">
+  </canvas>
+</div>
+<div class="btn-div">
+  <button id="btnImpRecibos" type="button" class="btn btn-success position-absolute end-0 m-10"><i
+      class="fas fa-print"></i> Imprimir</button>
+</div>
+
+<input type="hidden" class="numero_recibo{{id}}" value="{{ind}}">
+<input type="hidden" id="idr" value="{{note.id}}" name="idr" hidden="" />
+<input type="hidden" id="cantidad" value="{{note.cantidad}}" hidden="" />
+<input type="hidden" id="date" value="{{note.createdAt}}" hidden="" />
+<input type="hidden" id="recibi" value="{{note.recibi}}" hidden="" />
+<input type="hidden" id="direccion" value="{{note.direccion}}" hidden="" />
+<input type="hidden" id="cantidadlet" value="{{note.cantidadlet}} quetzales exactos." hidden="" />
+<input type="hidden" id="lugar" value="{{note.lugar}}" hidden="" />
+<input type="hidden" id="detalle" value="{{note.detalle}}" hidden="" />
+<input type="hidden" id="restante" value="{{note.restante}}" name="">
+<p id="valueInput"></p>
+<img id="source" src="/recibos.jpg" width="1282" height="720" style="display:none;">
+
+<script>
+  date = new Date($('#date').val());
+  fecha_xd = date.toLocaleDateString('es-ES');
+  id_recibo = $('#idr').val();
+  recibi = $('#recibi').val();
+  direccion = $('#direccion').val();
+  cantidadlet = $('#cantidadlet').val();
+  lugar = $('#lugar').val();
+
+  ind = Number($('.numero_recibo{{id}}').val());
+  index = ind + 1;
+  var i;
+  if (index < 10) {
+    i = '0' + index;
+  }
+  else {
+    i = index;
+  }
+
+  var canvas = document.getElementById("canvas");
+  var ctx = canvas.getContext("2d");
+
+  let detalle1 = $('#detalle').val();
+
+  var number = $('#restante').val();
+  var myNumeral = numeral(number);
+  var currencyString = myNumeral.format('Q0,0.00');
+
+  let detalle = detalle1 + ' del Proyecto Residencial Mallorca, restando un saldo de: Q. ' + currencyString + ' quetzales exactos.';
+
+  var cant = $('#cantidad').val();
+  var cantidad = numeral(cant);
+  var cantidad_moneda = cantidad.format('Q0,0.00');
+
+  var img = document.getElementById('source');
+
+  let fecha = fecha_xd;
+  f1 = fecha.substring(0, 2);
+  f2 = fecha.substring(3, 4);
+  f3 = fecha.substring(5, 9);
+
+  var fe1;
+  if (f1 < 10) {
+    fe1 = '0' + f1;
+  }
+  else {
+    fe1 = f1;
+  }
+
+  var fe2;
+  if (f2 < 10) {
+    fe2 = '0' + f2;
+  }
+  else {
+    fe2 = f2;
+  }
+
+  ctx.drawImage(img, 0, 0, 1282, 720);
+
+  ctx.fillStyle = '#1C1C1C';
+  ctx.font = '30px Montserrat';
+  ctx.fillText(cantidad_moneda, 1025, 131.5);
+  ctx.fillText(i, 820, 130);
+  ctx.fillText(recibi, 200, 189);
+  ctx.fillText(direccion, 200, 235);
+  ctx.fillText(cantidadlet, 212, 295);
+  ctx.fillText(cantidadlet, 212, 295);
+  ctx.fillText(lugar, 110, 550, 295);
+  ctx.fillText(fe1, 530, 550, 295);
+  ctx.fillText(fe2, 620, 550, 295);
+  ctx.fillText(f3, 712, 550, 295);
+
+  ajusteDeTexto(detalle, 100, 357, 1100, 37);
+
+  function ajusteDeTexto(texto, x, y, maxWidth, alturaDeLinea) {
+    // crea el array de las palabras del texto
+    let palabrasRy = texto.split(" ");
+    // inicia la variable var lineaDeTexto
+    let lineaDeTexto = "";
+    // un bucle for recorre todas las palabras
+    for (let i = 0; i < palabrasRy.length; i++) {
+      let testTexto = lineaDeTexto + palabrasRy[i] + " ";
+      // calcula la anchura del texto textWidth
+      let textWidth = ctx.measureText(testTexto).width;
+      // si textWidth > maxWidth
+      if (textWidth > maxWidth && i > 0) {
+        // escribe en el canvas la lineaDeTexto
+        ctx.fillText(lineaDeTexto, x, y);
+        // inicia otra lineaDeTexto
+        lineaDeTexto = palabrasRy[i] + " ";
+        // incrementa el valor de la variable y
+        //donde empieza la nueva lineaDeTexto
+        y += alturaDeLinea;
+      } else {// de lo contrario,  si textWidth <= maxWidth
+        lineaDeTexto = testTexto;
+      }
+    }// acaba el bucle for
+    // escribe en el canvas la última lineaDeTexto
+    ctx.fillText(lineaDeTexto, x, y);
+  }
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    // Escuchamos el click del botón
+    const $btn = document.querySelector("#btnImpRecibos");
+    $btn.addEventListener("click", () => {
+      ind = Number($('.numero_recibo{{id}}').val());
+      index = ind + 1;
+      var i;
+      if (index < 10) {
+        i = '0' + index;
+      }
+      else {
+        i = index;
+      }
+      const $elementoParaConvertir = document.querySelector("#canvas"); // <-- Aquí puedes elegir cualquier elemento del DOM
+      html2pdf()
+        .set({
+          margin: 0.2,
+          filename: 'recibo' + i + '.pdf',
+          image: {
+            type: 'jpeg',
+            quality: 0.98
+          },
+          html2canvas: {
+            scale: 3, // A mayor escala, mejores gráficos, pero más peso
+            letterRendering: true,
+            windowWidth: 1100,
+            windowHeight: 720,
+          },
+          jsPDF: {
+            unit: "in",
+            format: "a4",
+            orientation: 'landscape' // landscape o portrait
+          }
+        })
+        .from($elementoParaConvertir)
+        .save()
+        .catch(err => console.log(err));
+    });
+  });
+
+</script>

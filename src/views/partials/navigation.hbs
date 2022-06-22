@@ -1,61 +1,32 @@
-<nav class="navbar" role="navigation" aria-label="main navigation">
-    <div class="container">
-        <div class="navbar-brand">
-            <a class="navbar-item" href="/">
-                <h1 style="font-weight: 700; font-size: 20px;">Notes App</h1>
-            </a>
-
-            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
-                data-target="navbarBasicExample">
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-            </a>
-        </div>
-
-        <div id="navbarBasicExample" class="navbar-menu">
-            <div class="navbar-start">
-                <a href="/" class="navbar-item">
-                    Home
-                </a>
-                <a href="/about" class="navbar-item">
-                    About
-                </a>
-            </div>
-
-            <div class="navbar-end">
-                <div class="navbar-item has-dropdown is-hoverable">
-                    {{#if user}}
-                    <a class="navbar-link">
-                        Notes
-                    </a>
-
-                    <div class="navbar-dropdown">
-                        <a href="/notes" class="navbar-item">
-                            All Notes
+    <header class="nav">
+        <div class="nav-content">
+            <div class="section-container">
+                <section class="logo">
+                    <img src="/ProyectoResidencialMallorca.svg" alt="">
+                </section>
+                <section class="nav-items">
+                    <ul class="list">
+                        <a href="#Inicio" class="list-xd">
+                            <li>Inicio</li>
                         </a>
-                        <a href="/notes/add" class="navbar-item">
-                            Add Notes
+                        <a href="#Detalles" class="list-xd">
+                            <li>Detalles</li>
                         </a>
-                        <hr class="navbar-divider">
-                        <a href="/logout" class="navbar-item">
-                            Logout
+                        <a href="#Imagenes" class="list-xd">
+                            <li>Imágenes</li>
                         </a>
-                    </div>
-                </div>
+                        <a href="#Contacto" class="list-xd">
+                            <li>Contacto</li>
+                        </a>
+                    </ul>
+                {{#if user}}
+                </section>
+                <a href="/profile/" class="btn-register"><i class="fa-solid fa-user"></i>     Perfil</a>
                 {{else}}
-                <div class="navbar-item">
-                    <div class="buttons">
-                        <a href="/signin" class="button is-light">
-                            Log in
-                        </a>
-                        <a href="/signup" class="button is-primary">
-                            <strong>Sign up</strong>
-                        </a>
-                    </div>
-                </div>
+                </section>
+                <a href="/signin" class="btn-login">Entrar</a>
+                <a href="/signup" class="btn-register">Registrar</a>
                 {{/if}}
             </div>
         </div>
-    </div>
-</nav>
+    </header>

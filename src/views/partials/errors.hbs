@@ -1,24 +1,39 @@
-{{#if error }}
-<div class="notification is-danger is-light">
-    <button class="delete"></button>
-    {{error}}
+<div class="errors-container">
+    <div class="errors">
+        {{#if error }}
+        <div class="alert show showAlert is-error">
+            <span class="fas fa-exclamation-circle"></span>
+            <span class="msg">Error: {{error}}!</span>
+            <span class="btn close-btn">
+                <span class="fas fa-times"></span>
+            </span>
+        </div>
+        {{/if}}
+        {{#each errors}}
+        <div class="alert show showAlert is-error i{{@index}}">
+            <span class="fas fa-exclamation-circle"></span>
+            <span class="msg">Error {{@index}}: {{text}}!</span>
+            <span class="close-btn btn{{@index}}">
+                <span class="fas fa-times"></span>
+            </span>
+        </div>
+        <script>
+        </script>
+        {{/each}}
+    </div>
 </div>
-{{/if}}
-{{#each errors}}
-<div class="notification is-danger is-light">
-    <button class="delete"></button>
-    {{text}}
-</div>
-{{/each}}
 
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        (document.querySelectorAll('.notification .delete') || []).forEach(($delete) => {
-            const $notification = $delete.parentNode;
-
-            $delete.addEventListener('click', () => {
-                $notification.parentNode.removeChild($notification);
-            });
-        });
+    setTimeout(function () {
+        $('.alert').addClass("hide");
+        $('.alert').removeClass("show");
+    }, 5000);
+    $('.btn0').click(function () {
+        $('.i0').addClass("hide");
+        $('.i0').removeClass("show");
+    });
+    $('.btn1').click(function () {
+        $('.i1').removeClass("show");
+        $('.i1').addClass("hide");
     });
 </script>

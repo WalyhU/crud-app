@@ -1,12 +1,32 @@
 const { Schema, model } = require('mongoose');
 
 const NoteSchema = new Schema ({
-    title: {
+    cantidad: {
+        type: Number,
+        required: true
+    },
+    recibi: {
         type: String,
         required: true
     },
-    description: {
+    direccion: {
         type: String,
+        required: true
+    },
+    cantidadlet: {
+        type: String,
+        required: true
+    },
+    detalle: {
+        type: String,
+        required: true
+    },
+    lugar: {
+        type: String,
+        required: true
+    },
+    restante: {
+        type: Number,
         required: true
     },
     user: {

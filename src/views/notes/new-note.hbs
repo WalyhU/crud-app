@@ -1,31 +1,44 @@
-<form action="/notes/new-note" method="post">
-    <div class="card">
-        <header class="card-header">
-            <p class="card-header-title">
-                Add Note
-            </p>
-            <button class="card-header-icon" aria-label="more options">
-                <span class="icon">
-                    <i class="fas fa-angle-down" aria-hidden="true"></i>
-                </span>
-            </button>
-        </header>
-        <div class="card-content">
-            <div class="content">
-                <div class="field">
-                    <div class="control">
-                        <input class="input" type="text" name="title" placeholder="Title" autofocus>
-                    </div>
-                </div>
-                <div class="field">
-                    <div class="control">
-                        <textarea class="textarea" name="description" placeholder="Description"></textarea>
-                    </div>
-                </div>
+{{>navigation_profile_admin}}
+<div class="separacion"></div>
+<link href="https://unpkg.com/tailwindcss@2.2.4/dist/tailwind.min.css" rel="stylesheet">
+<link rel="stylesheet" href="/css/add-recibo.css">
+<link rel="stylesheet" href="/css/profile.css">
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<section id="Formulario">
+    <!-- cantidad, recibi, direccion, cantidadlet, detalle, lugar, user -->
+    <div class="form">
+        <div class="contenido">
+            <div class="titulo">
+                <h1>Crear Recibo</h1>
+            </div>
+            <div class="contenedor-form">
+                <form action="/notes/new-note" method="post">
+                    <select name="user" class="user-select single js-states form-control" id="id_label_single"
+                        style="width: 100%;">
+                        <option value="" selected="selected" disabled="disabled">Seleccione un usuario...</option>
+                        {{#each datos}}
+                        <option value="{{user}}">{{nombre}} {{apellido}}</option>
+                        {{/each}}
+                    </select>
+                    <input type="number" name="cantidad" placeholder="cantidad" autocomplete="off" autofocus>
+                    <input type="text" name="recibi" placeholder="recibi de" id="recibi" autocomplete="off">
+                    <input type="text" name="direccion" placeholder="direccion" autocomplete="off">
+                    <input type="text" name="cantidadlet" placeholder="cantidad en letras" autocomplete="off">
+                    <input type="text" name="detalle" placeholder="detalle" autocomplete="off">
+                    <input type="text" name="lugar" placeholder="lugar" value="Sanarate, El Progreso" autocomplete="off">
+                    <input type="submit" value="Crear">
+                </form>
             </div>
         </div>
-        <footer class="card-footer">
-            <a href="#" class="card-footer-item btn-footer"><button class="btn">Save</button></a>
-        </footer>
     </div>
-</form>
+</section>
+<script>
+    $('.user-select').select2();
+</script>
+<script>
+    $(".single").change(function () {
+        value = $('select[name="user"] option:selected').text();
+        $('#recibi').val(value);
+    });
+</script>
